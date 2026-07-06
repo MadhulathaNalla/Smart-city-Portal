@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart City Complaint Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <!-- LANDING PAGE -->
+    <div id="landingPage" class="page active">
+        <nav class="navbar">
+            <div class="container">
+                <div class="navbar-brand">🏙️ Smart City Portal</div>
+                <div class="navbar-menu">
+                    <button class="btn btn--secondary btn--sm" onclick="showPage('loginPage')">Login</button>
+                    <button class="btn btn--primary btn--sm" onclick="showPage('registerPage')">Register</button>
+                </div>
+            </div>
+        </nav>
+        
+        <section class="hero">
+            <div class="container">
+                <h1 class="hero-title">Smart City Complaint Management System</h1>
+                <p class="hero-subtitle">Making Your City Better, One Complaint at a Time</p>
+                <div class="hero-buttons">
+                    <button class="btn btn--primary btn--lg" onclick="showPage('loginPage')">Login</button>
+                    <button class="btn btn--outline btn--lg" onclick="showPage('registerPage')">Register</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="container">
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">✍️</div>
+                        <h3>Easy Registration</h3>
+                        <p>Quick and simple registration process to get started</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📝</div>
+                        <h3>Quick Complaint Filing</h3>
+                        <p>File your complaints in just a few clicks</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3>Real-time Status Tracking</h3>
+                        <p>Track your complaint status in real-time</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">✅</div>
+                        <h3>Efficient Resolution</h3>
+                        <p>Fast and efficient complaint resolution process</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <div class="container">
+                <p>&copy; 2025 Smart City Portal. All rights reserved.</p>
+                <p>Contact: info@smartcity.com | Phone: 1800-SMART-CITY</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- REGISTER PAGE -->
+    <div id="registerPage" class="page">
+        <nav class="navbar">
+            <div class="container">
+                <div class="navbar-brand" onclick="showPage('landingPage')" style="cursor: pointer;">🏙️ Smart City Portal</div>
+            </div>
+        </nav>
+        <div class="container" style="max-width: 600px; margin-top: 40px;">
+            <div class="card">
+                <div class="card__body">
+                    <h2 style="text-align: center; margin-bottom: 24px;">User Registration</h2>
+                    <form id="registerForm" onsubmit="handleRegister(event)">
+                        <div class="form-group">
+                            <label class="form-label">Full Name *</label>
+                            <input type="text" class="form-control" id="regName" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Email Address *</label>
+                            <input type="email" class="form-control" id="regEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Mobile Number *</label>
+                            <input type="tel" class="form-control" id="regMobile" pattern="[0-9]{10}" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Address</label>
+                            <textarea class="form-control" id="regAddress" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Password * (minimum 6 characters)</label>
+                            <input type="password" class="form-control" id="regPassword" minlength="6" required>
+                            <div id="passwordStrength" class="password-strength"></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Confirm Password *</label>
+                            <input type="password" class="form-control" id="regConfirmPassword" required>
+                        </div>
+                        <button type="submit" class="btn btn--primary btn--full-width">Register</button>
+                    </form>
+                    <p style="text-align: center; margin-top: 16px;">
+                        Already have an account? <a href="#" onclick="showPage('loginPage'); return false;">Login</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- LOGIN PAGE -->
+    <div id="loginPage" class="page">
+        <nav class="navbar">
+            <div class="container">
+                <div class="navbar-brand" onclick="showPage('landingPage')" style="cursor: pointer;">🏙️ Smart City Portal</div>
+            </div>
+        </nav>
+        <div class="container" style="max-width: 500px; margin-top: 80px;">
+            <div class="card">
+                <div class="card__body">
+                    <h2 style="text-align: center; margin-bottom: 24px;">User Login</h2>
+                    <form id="loginForm" onsubmit="handleLogin(event)">
+                        <div class="form-group">
+                            <label class="form-label">Email Address *</label>
+                            <input type="email" class="form-control" id="loginEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Password *</label>
+                            <input type="password" class="form-control" id="loginPassword" required>
+                        </div>
+                        <div class="form-group">
+                            <label style="display: flex; align-items: center; gap: 8px; font-size: 14px;">
+                                <input type="checkbox" id="rememberMe"> Remember Me
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn--primary btn--full-width">Login</button>
+                    </form>
+                    <p style="text-align: center; margin-top: 16px;">
+                        <a href="#" onclick="alert('Please contact admin@smartcity.com for password reset'); return false;">Forgot Password?</a>
+                    </p>
+                    <p style="text-align: center; margin-top: 8px;">
+                        Don't have an account? <a href="#" onclick="showPage('registerPage'); return false;">Register</a>
+                    </p>
+                    <p style="text-align: center; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--color-border);">
+                        <a href="#" onclick="showPage('adminLoginPage'); return false;">Admin Login →</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADMIN LOGIN PAGE -->
+    <div id="adminLoginPage" class="page">
+        <nav class="navbar">
+            <div class="container">
+                <div class="navbar-brand" onclick="showPage('landingPage')" style="cursor: pointer;">🏙️ Smart City Portal</div>
+            </div>
+        </nav>
+        <div class="container" style="max-width: 500px; margin-top: 80px;">
+            <div class="card">
+                <div class="card__body">
+                    <h2 style="text-align: center; margin-bottom: 24px;">Admin Login</h2>
+                    <form id="adminLoginForm" onsubmit="handleAdminLogin(event)">
+                        <div class="form-group">
+                            <label class="form-label">Admin Email *</label>
+                            <input type="text" class="form-control" id="adminEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Password *</label>
+                            <input type="password" class="form-control" id="adminPassword" required>
+                        </div>
+                        <button type="submit" class="btn btn--primary btn--full-width">Login as Admin</button>
+                    </form>
+                    <p style="text-align: center; margin-top: 16px;">
+                        <a href="#" onclick="showPage('loginPage'); return false;">← Back to User Login</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- USER DASHBOARD -->
+    <div id="userDashboard" class="page">
+        <nav class="navbar">
+            <div class="container">
+                <div class="navbar-brand">🏙️ Smart City Portal</div>
+                <div class="navbar-menu">
+                    <button class="btn btn--secondary btn--sm" onclick="showUserView('dashboard')">Dashboard</button>
+                    <button class="btn btn--secondary btn--sm" onclick="showUserView('fileComplaint')">File Complaint</button>
+                    <button class="btn btn--secondary btn--sm" onclick="showUserView('myComplaints')">My Complaints</button>
+                    <button class="btn btn--secondary btn--sm" onclick="showUserView('profile')">Profile</button>
+                    <button class="btn btn--outline btn--sm" onclick="handleLogout()">Logout</button>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container" style="margin-top: 32px;">
+            <!-- Dashboard View -->
+            <div id="dashboardView" class="user-view active">
+                <h2 id="welcomeMessage"></h2>
+                <div class="stats-grid">
+                    <div class="stat-card" style="background: var(--color-bg-1);">
+                        <div class="stat-value" id="totalComplaintsUser">0</div>
+                        <div class="stat-label">Total Complaints</div>
+                    </div>
+                    <div class="stat-card" style="background: var(--color-bg-2);">
+                        <div class="stat-value" id="pendingComplaintsUser">0</div>
+                        <div class="stat-label">Pending</div>
+                    </div>
+                    <div class="stat-card" style="background: var(--color-bg-3);">
+                        <div class="stat-value" id="resolvedComplaintsUser">0</div>
+                        <div class="stat-label">Resolved</div>
+                    </div>
+                    <div class="stat-card" style="background: var(--color-bg-4);">
+                        <div class="stat-value" id="inProgressComplaintsUser">0</div>
+                        <div class="stat-label">In Progress</div>
+                    </div>
+                </div>
+                <div class="card" style="margin-top: 32px;">
+                    <div class="card__body">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                            <h3>Recent Complaints</h3>
+                            <button class="btn btn--primary" onclick="showUserView('fileComplaint')">File New Complaint</button>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Complaint ID</th>
+                                        <th>Subject</th>
+                                        <th>Status</th>
+                                        <th>Date</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recentComplaintsTable"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- File Complaint View -->
+            <div id="fileComplaintView" class="user-view">
+                <h2>File New Complaint</h2>
+                <div class="card" style="margin-top: 24px;">
+                    <div class="card__body">
+                        <form id="complaintForm" onsubmit="handleFileComplaint(event)">
+                            <div class="form-group">
+                                <label class="form-label">Department/Category *</label>
+                                <select class="form-control" id="complaintDepartment" required>
+                                    <option value="">Select Department</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Subject/Title *</label>
+                                <input type="text" class="form-control" id="complaintSubject" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Description *</label>
+                                <textarea class="form-control" id="complaintDescription" rows="4" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Location *</label>
+                                <input type="text" class="form-control" id="complaintLocation" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Priority *</label>
+                                <select class="form-control" id="complaintPriority" required>
+                                    <option value="Low">Low</option>
+                                    <option value="Medium" selected>Medium</option>
+                                    <option value="High">High</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Upload Image (Optional)</label>
+                                <input type="file" class="form-control" id="complaintImage" accept="image/*">
+                                <small id="imageFileName" style="display: block; margin-top: 8px; color: var(--color-text-secondary);"></small>
+                            </div>
+                            <button type="submit" class="btn btn--primary">Submit Complaint</button>
+                            <button type="button" class="btn btn--secondary" onclick="showUserView('dashboard')" style="margin-left: 8px;">Cancel</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- My Complaints View -->
+            <div id="myComplaintsView" class="user-view">
+                <h2>My Complaints</h2>
+                <div class="card" style="margin-top: 24px;">
+                    <div class="card__body">
+                        <div class="filters" style="margin-bottom: 16px;">
+                            <select class="form-control" id="filterStatus" onchange="filterUserComplaints()" style="display: inline-block; width: auto; margin-right: 8px;">
+                                <option value="All">All Status</option>
+                                <option value="Pending">Pending</option>
+                                <option value="In Progress">In Progress</option>
+                                <option value="Resolved">Resolved</option>
+                                <option value="Closed">Closed</option>
+                            </select>
+                            <input type="text" class="form-control" id="searchComplaint" placeholder="Search by ID or subject" onkeyup="filterUserComplaints()" style="display: inline-block; width: 300px; vertical-align: top;">
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Complaint ID</th>
+                                        <th>Subject</th>
+                                        <th>Department</th>
+                                        <th>Status</th>
+                                        <th>Date Filed</th>
+                                        <th>Priority</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="myComplaintsTable"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Complaint Details View -->
+            <div id="complaintDetailsView" class="user-view">
+                <button class="btn btn--secondary" onclick="showUserView('myComplaints')" style="margin-bottom: 16px;">← Back to My Complaints</button>
+                <div class="card">
+                    <div class="card__body" id="complaintDetailsContent"></div>
+                </div>
+            </div>
+
+            <!-- User Profile View -->
+            <div id="profileView" class="user-view">
+                <h2>My Profile</h2>
+                <div class="card" style="margin-top: 24px;">
+                    <div class="card__body" id="profileContent"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADMIN DASHBOARD -->
+    <div id="adminDashboard" class="page">
+        <nav class="navbar">
+            <div class="container">
+                <div class="navbar-brand">🏙️ Admin Panel</div>
+                <div class="navbar-menu">
+                    <button class="btn btn--secondary btn--sm" onclick="showAdminView('dashboard')">Dashboard</button>
+                    <button class="btn btn--secondary btn--sm" onclick="showAdminView('manageComplaints')">Manage Complaints</button>
+                    <button class="btn btn--secondary btn--sm" onclick="showAdminView('manageUsers')">Manage Users</button>
+                    <button class="btn btn--secondary btn--sm" onclick="showAdminView('categories')">Categories</button>
+                    <button class="btn btn--secondary btn--sm" onclick="showAdminView('reports')">Reports</button>
+                    <button class="btn btn--outline btn--sm" onclick="handleLogout()">Logout</button>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container" style="margin-top: 32px;">
+            <!-- Admin Dashboard View -->
+            <div id="adminDashboardView" class="admin-view active">
+                <h2>Admin Dashboard</h2>
+                <div class="stats-grid">
+                    <div class="stat-card" style="background: var(--color-bg-1);">
+                        <div class="stat-value" id="totalComplaintsAdmin">0</div>
+                        <div class="stat-label">Total Complaints</div>
+                    </div>
+                    <div class="stat-card" style="background: var(--color-bg-2);">
+                        <div class="stat-value" id="pendingComplaintsAdmin">0</div>
+                        <div class="stat-label">Pending Complaints</div>
+                    </div>
+                    <div class="stat-card" style="background: var(--color-bg-3);">
+                        <div class="stat-value" id="resolvedToday">0</div>
+                        <div class="stat-label">Resolved Today</div>
+                    </div>
+                    <div class="stat-card" style="background: var(--color-bg-4);">
+                        <div class="stat-value" id="totalUsers">0</div>
+                        <div class="stat-label">Total Users</div>
+                    </div>
+                </div>
+                <div class="card" style="margin-top: 32px;">
+                    <div class="card__body">
+                        <h3>Complaints by Department</h3>
+                        <canvas id="departmentChart" style="max-height: 300px; margin-top: 16px;"></canvas>
+                    </div>
+                </div>
+                <div class="card" style="margin-top: 32px;">
+                    <div class="card__body">
+                        <h3>Recent Complaints</h3>
+                        <div class="table-responsive" style="margin-top: 16px;">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Complaint ID</th>
+                                        <th>User</th>
+                                        <th>Subject</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="adminRecentComplaintsTable"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Manage Complaints View -->
+            <div id="manageComplaintsView" class="admin-view">
+                <h2>Manage Complaints</h2>
+                <div class="card" style="margin-top: 24px;">
+                    <div class="card__body">
+                        <div class="filters" style="margin-bottom: 16px;">
+                            <select class="form-control" id="adminFilterStatus" onchange="filterAdminComplaints()" style="display: inline-block; width: auto; margin-right: 8px;">
+                                <option value="All">All Status</option>
+                                <option value="Pending">Pending</option>
+                                <option value="In Progress">In Progress</option>
+                                <option value="Resolved">Resolved</option>
+                                <option value="Closed">Closed</option>
+                            </select>
+                            <select class="form-control" id="adminFilterDept" onchange="filterAdminComplaints()" style="display: inline-block; width: auto; margin-right: 8px;">
+                                <option value="All">All Departments</option>
+                            </select>
+                            <input type="text" class="form-control" id="adminSearchComplaint" placeholder="Search..." onkeyup="filterAdminComplaints()" style="display: inline-block; width: 250px; vertical-align: top;">
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Complaint ID</th>
+                                        <th>User</th>
+                                        <th>Subject</th>
+                                        <th>Department</th>
+                                        <th>Status</th>
+                                        <th>Priority</th>
+                                        <th>Date</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="adminComplaintsTable"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Manage Users View -->
+            <div id="manageUsersView" class="admin-view">
+                <h2>Manage Users</h2>
+                <div class="card" style="margin-top: 24px;">
+                    <div class="card__body">
+                        <div style="margin-bottom: 16px;">
+                            <input type="text" class="form-control" id="searchUsers" placeholder="Search by name or email" onkeyup="filterUsers()" style="display: inline-block; width: 300px;">
+                            <button class="btn btn--primary" onclick="exportUsers()" style="margin-left: 8px;">Export to CSV</button>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>User ID</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Mobile</th>
+                                        <th>Registration Date</th>
+                                        <th>Total Complaints</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="usersTable"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Manage Categories View -->
+            <div id="categoriesView" class="admin-view">
+                <h2>Manage Categories</h2>
+                <div class="card" style="margin-top: 24px;">
+                    <div class="card__body">
+                        <button class="btn btn--primary" onclick="showAddCategoryModal()" style="margin-bottom: 16px;">Add New Category</button>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Category Name</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="categoriesTable"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reports View -->
+            <div id="reportsView" class="admin-view">
+                <h2>Reports &amp; Analytics</h2>
+                <div class="card" style="margin-top: 24px;">
+                    <div class="card__body">
+                        <div style="margin-bottom: 24px;">
+                            <label class="form-label">Date Range:</label>
+                            <input type="date" class="form-control" id="reportStartDate" style="display: inline-block; width: auto; margin-right: 8px;">
+                            <span>to</span>
+                            <input type="date" class="form-control" id="reportEndDate" style="display: inline-block; width: auto; margin-left: 8px; margin-right: 8px;">
+                            <button class="btn btn--primary" onclick="generateReport()">Generate Report</button>
+                            <button class="btn btn--secondary" onclick="exportReportPDF()">Export PDF</button>
+                        </div>
+                        <div id="reportResults"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Update Complaint Modal -->
+    <div id="updateComplaintModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeUpdateModal()">&times;</span>
+            <h3>Update Complaint</h3>
+            <div id="updateComplaintContent"></div>
+        </div>
+    </div>
+
+    <!-- Add Category Modal -->
+    <div id="addCategoryModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeAddCategoryModal()">&times;</span>
+            <h3>Add New Category</h3>
+            <form onsubmit="handleAddCategory(event)">
+                <div class="form-group">
+                    <label class="form-label">Category Name *</label>
+                    <input type="text" class="form-control" id="newCategoryName" required>
+                </div>
+                <button type="submit" class="btn btn--primary">Add Category</button>
+                <button type="button" class="btn btn--secondary" onclick="closeAddCategoryModal()" style="margin-left: 8px;">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Profile Modal -->
+    <div id="editProfileModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeEditProfileModal()">&times;</span>
+            <h3>Edit Profile</h3>
+            <form onsubmit="handleEditProfile(event)">
+                <div class="form-group">
+                    <label class="form-label">Full Name *</label>
+                    <input type="text" class="form-control" id="editName" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Mobile Number *</label>
+                    <input type="tel" class="form-control" id="editMobile" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Address</label>
+                    <textarea class="form-control" id="editAddress" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn btn--primary">Save Changes</button>
+                <button type="button" class="btn btn--secondary" onclick="closeEditProfileModal()" style="margin-left: 8px;">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
